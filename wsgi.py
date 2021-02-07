@@ -1,6 +1,6 @@
 #flask
 from flask import Flask, jsonify, request, json,send_file,redirect,url_for,session
-from flask_pymongo import PyMongo
+from Flask-PyMongo import PyMongo
 from bson.json_util import dumps
 from flask_cors import CORS
 from pymongo import MongoClient
