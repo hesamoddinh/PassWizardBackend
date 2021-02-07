@@ -75,7 +75,7 @@ def read_mongo(db, collection, query={}, username=None, password=password):
 
     return df
 #create data object to use in machine learinig part
-print(dataPro)
+#print(dataPro)
 
 
 #create data object to use in machine learinig part
