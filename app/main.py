@@ -1,5 +1,5 @@
 #flask
-from flask_pymongo import PyMongo
+import pymongo
 from flask import Flask, jsonify, request, json,send_file,redirect,url_for,session
 from flask_pymongo import PyMongo
 from bson.json_util import dumps
