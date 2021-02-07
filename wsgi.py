@@ -244,7 +244,7 @@ print('precision_support: ',precision_score(y_test, predG3, average=None))
 
 @app.route("/alldata")
 def home_page():
-    df = mongo.db.passwizardfe.find()
+    df = mongo.db.pwdataset.find()
     resp = dumps(df)
     return resp
 
