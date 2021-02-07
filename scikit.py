@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 from bson.json_util import dumps
 from flask_cors import CORS
 from pymongo import MongoClient
+import pymongo
 
 import numpy as np
 import pandas as pd
@@ -48,33 +49,23 @@ from sklearn.feature_selection import SelectKBest, chi2
 ###flask configuration
 app = Flask(__name__)
 CORS(app)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/ladb"
+app.config["MONGO_URI"] = "mongodb+srv://passwizard:la123@cluster0.oq03l.mongodb.net/ladb?retryWrites=true&w=majority"
 mongo = PyMongo(app)
 
+
 ###database configuration
-server = "127.0.0.1"
-port = 27017
 db = "ladb"
-collection = "passwizard" 
-
-def _connect_mongo(host, port, username, password, db):
-    """ A util for making a connection to mongo """
-
-    if username and password:
-        mongo_uri = 'mongodb://%s:%s@%s:%s/%s' % (username, password, host, port, db)
-        conn = MongoClient(mongo_uri)
-    else:
-        conn = MongoClient(host, port)
+collection = "mldataset" 
+password= "la123"
 
 
-    return conn[db]
-
-
-def read_mongo(db, collection, query={}, host='localhost', port=27017, username=None, password=None, no_id=True):
+def read_mongo(db, collection, query={}, username=None, password=password):
     """ Read from Mongo and Store into DataFrame """
 
-    # Connect to MongoDB
-    db = _connect_mongo(host=host, port=port, username=username, password=password, db=db)
+    client = pymongo.MongoClient("mongodb+srv://passwizard:la123@cluster0.oq03l.mongodb.net/ladb?retryWrites=true&w=majority")
+    db = client.ladb
+    client.server_info()
+
 
     # Make a query to the specific DB and Collection
     cursor = db[collection].find(query)
@@ -82,11 +73,11 @@ def read_mongo(db, collection, query={}, host='localhost', port=27017, username=
     # Expand the cursor and construct the DataFrame
     df =  pd.DataFrame(list(cursor))
 
-    # Delete the _id
-    if no_id:
-        del df['_id']
-
     return df
+#create data object to use in machine learinig part
+# print(dataPro)
+
+
 #create data object to use in machine learinig part
 dataPro=read_mongo(db, collection)
 
@@ -253,7 +244,7 @@ print('precision_support: ',precision_score(y_test, predG3, average=None))
 
 @app.route("/alldata")
 def home_page():
-    df = mongo.db.passwizardfe.find()
+    df = mongo.db.pwdataset.find()
     resp = dumps(df)
     return resp
 
