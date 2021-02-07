@@ -1,9 +1,11 @@
 #flask
+import pymongo
 from flask import Flask, jsonify, request, json,send_file,redirect,url_for,session
 from flask_pymongo import PyMongo
 from bson.json_util import dumps
 from flask_cors import CORS
 from pymongo import MongoClient
+
 
 import numpy as np
 import pandas as pd
@@ -74,11 +76,10 @@ def read_mongo(db, collection, query={}, username=None, password=password):
 
     return df
 #create data object to use in machine learinig part
-#print(dataPro)
-
 
 #create data object to use in machine learinig part
 dataPro=read_mongo(db, collection)
+print(dataPro)
 
 ###machine learning segment
 #Naive-Bais
