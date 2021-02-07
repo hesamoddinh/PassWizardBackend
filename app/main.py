@@ -49,7 +49,7 @@ from sklearn.feature_selection import SelectKBest, chi2
 ###flask configuration
 app = Flask(__name__)
 CORS(app)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/ladb"
+app.config["MONGO_URI"] = "mongodb+srv://passwizard:la123@cluster0.oq03l.mongodb.net/ladb?retryWrites=true&w=majority"
 mongo = PyMongo(app)
 
 
