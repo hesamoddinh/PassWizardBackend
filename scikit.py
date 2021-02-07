@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 from bson.json_util import dumps
 from flask_cors import CORS
 from pymongo import MongoClient
+import pymongo
 
 import numpy as np
 import pandas as pd
@@ -48,7 +49,7 @@ from sklearn.feature_selection import SelectKBest, chi2
 ###flask configuration
 app = Flask(__name__)
 CORS(app)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/ladb"
+app.config["MONGO_URI"] = "mongodb+srv://passwizard:la123@cluster0.oq03l.mongodb.net/ladb?retryWrites=true&w=majority"
 mongo = PyMongo(app)
 
 
@@ -243,7 +244,7 @@ print('precision_support: ',precision_score(y_test, predG3, average=None))
 
 @app.route("/alldata")
 def home_page():
-    df = mongo.db.passwizardfe.find()
+    df = mongo.db.pwdataset.find()
     resp = dumps(df)
     return resp
 
