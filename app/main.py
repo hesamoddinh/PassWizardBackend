@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 from bson.json_util import dumps
 from flask_cors import CORS
 from pymongo import MongoClient
+import flask_pymongo
 
 import numpy as np
 import pandas as pd
